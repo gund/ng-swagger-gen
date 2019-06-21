@@ -157,5 +157,7 @@ function run(options) {
   if (options.output == null) {
     options.output = schema.properties.output.default;
   }
-  ngSwaggerGen(options);
+  ngSwaggerGen(options).catch(function(error) {
+    console.error(`Error: ${error}`);
+  });
 }

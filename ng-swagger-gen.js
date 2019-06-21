@@ -29,21 +29,18 @@ function ngSwaggerGen(options) {
   var globalTunnel = require('global-tunnel-ng');
   globalTunnel.initialize();
 
-  $RefParser
+  return $RefParser
     .bundle(options.swagger, { dereference: { circular: false } })
     .then(
       data => {
         doGenerate(options.transform(data), options);
       },
       err => {
-        console.error(
-          `Error reading swagger location ${options.swagger}: ${err}`,
+        throw new Error(
+          `Error reading swagger location ${options.swagger}:\n${err}`,
         );
       },
-    )
-    .catch(function(error) {
-      console.error(`Error: ${error}`);
-    });
+    );
 }
 
 /**
