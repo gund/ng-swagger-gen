@@ -17,6 +17,15 @@ function ngSwaggerGen(options) {
     process.exit(1);
   }
 
+  if (options.transform) {
+    const transformerPath = path.isAbsolute(options.transform)
+      ? options.transform
+      : path.join(process.cwd(), options.transform);
+    options.transform = require(transformerPath);
+  } else {
+    options.transform = d => d;
+  }
+
   var globalTunnel = require('global-tunnel-ng');
   globalTunnel.initialize();
 
@@ -24,7 +33,7 @@ function ngSwaggerGen(options) {
     .bundle(options.swagger, { dereference: { circular: false } })
     .then(
       data => {
-        doGenerate(data, options);
+        doGenerate(options.transform(data), options);
       },
       err => {
         console.error(

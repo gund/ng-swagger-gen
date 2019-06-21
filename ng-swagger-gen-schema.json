@@ -99,6 +99,10 @@
     "templateOptions": {
       "description": "Override options for Mustache templates",
       "type": "object"
+    },
+    "transform": {
+      "type": "string",
+      "description": "Path to JS module with default exported transformer function"
     }
   }
 }
