@@ -1,8 +1,11 @@
 {
-  "name": "ng-swagger-gen",
-  "version": "1.7.0-b",
+  "name": "@gund/ng-swagger-gen",
+  "version": "1.9.1",
   "license": "MIT",
   "author": "Cyclos development team",
+  "maintainers": [
+    "Alex Malkevich <malkevich.alex@gmail.com>"
+  ],
   "description": "A Swagger 2.0 codegen for Angular",
   "private": false,
   "keywords": [
@@ -12,7 +15,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cyclosproject/ng-swagger-gen.git"
+    "url": "git+https://github.com/gund/ng-swagger-gen.git"
   },
   "dependencies": {
     "argparse": "^1.0.10",
