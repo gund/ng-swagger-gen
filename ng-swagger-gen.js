@@ -96,11 +96,25 @@ function doGenerate(swagger, options) {
   var removeStaleFiles = options.removeStaleFiles !== false;
   var generateEnumModule = options.enumModule !== false;
 
+  function processModelOverrides(overrides, model) {
+    return Object.keys(overrides)
+      .map(key => [
+        key,
+        typeof overrides[key] === 'function'
+          ? overrides[key]
+          : () => overrides[key],
+      ])
+      .reduce(
+        (acc, [key, overrideFn]) => ({ ...acc, [key]: overrideFn(acc[key]) }),
+        model,
+      );
+  }
+
   // Utility function to render a template and write it to a file
   var generate = function(templateName, model, file) {
     var template = templates[templateName];
     var modelOverrides = templateOverrides[templateName];
-    var fullModel = { ...model, ...modelOverrides };
+    var fullModel = processModelOverrides(modelOverrides, model);
 
     var code = Mustache.render(template, fullModel, templates).replace(
       /[^\S\r\n]+$/gm,
